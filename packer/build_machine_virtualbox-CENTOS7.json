@@ -1,8 +1,8 @@
 {
     "builders": [{
         "type": "virtualbox-iso",
-        "guest_os_type": "Ubuntu_64",
-        "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso",
+        "guest_os_type": "CentOS",
+        "iso_url": "../iso/Ce.ntOS-7-x86_64-Minimal-1511.iso",
         "iso_checksum": "88c0437f0a14c6e2c94426df9d43cd67",
         "iso_checksum_type": "md5",
         "ssh_username": "packer",
@@ -12,13 +12,11 @@
     "provisioners": [{
         "type": "shell",
         "inline": [
-            "apt-get -y update",
-            "apt-get install -y python-pip python-dev",
-            "pip install ansible"
+            "yum update -y"
         ]
     }, {
         "type": "ansible-local",
-        "playbook_file": "playbooks/local.yml"
+        "playbook_file": "../ansible/playbook.yml"
     }],
     "post-processors": [{
     }]
