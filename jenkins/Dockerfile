@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM avastmick/development-base
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
