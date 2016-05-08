@@ -2,7 +2,8 @@ FROM centos:latest
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
-WORKDIR /usr/local/repos
+RUN yum update -y
+RUN yum install -y java
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
