@@ -4,18 +4,6 @@ MAINTAINER avastmick <avastmick.outlook.com>
 
 WORKDIR /usr/local/repos
 
-RUN yum update -y
-RUN yum install -y wget epel-release unzip openssl ca-certificates libssl-dev uuid-dev python-pip python-dev python-setuptools rpm-build make asciidoc git python-setuptools python2-devel
-
-RUN yum install -y ansible
-
-RUN curl -sf -O https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip && \
-    unzip packer_0.10.0_linux_amd64.zip -d /usr/bin
-
-# Should be set up now with Ansible and Packer installed. Now Jenkins (a bigger job to get it "just works")
-
-# Jenkins configuration ripped off from  https://github.com/jenkinsci/docker/blob/5a51d0a519cb6605280adb8719f0e050ea69bac6/Dockerfile
-
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
@@ -51,6 +39,7 @@ ARG JENKINS_VERSION
 ENV JENKINS_VERSION ${JENKINS_VERSION:-2.0}
 ARG JENKINS_SHA
 ENV JENKINS_SHA ${JENKINS_SHA:-da06f963edb627f0ced2fce612f9985d1928f79b}
+
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
