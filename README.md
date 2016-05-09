@@ -16,4 +16,3 @@ A set of docker images and scripts to set up a viable local deve env using Ansib
 ## Branches
 
 1. master will be base on Ubuntu images
-2. centos-rhel is as expected.

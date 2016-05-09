@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Creates and runs a local container according to "target" image
+#
+
+# Help
+function usage {
+    echo Usage:
+    echo    run-docker [target]
+    echo target:
+    echo    \"level-2\" - creates a Level 2 container
+    echo    \"level-3\" - creates a Level 3 container
+}
+if [ -z "$1" ]; then
+    usage
+    exit
+fi
+if [[ "$1" == "level-2" ]]; then
+    # TODO - check the image exists and if not run "docker build"
+    docker run -p --httpPort=9090 9090:9090 -p 50000:50000 --name build-box-lvl2 -i -t avastmick/build-box-lvl2;
+elif [[ "$1" == "build-box-lvl2" ]]; then
+    # TODO - check the image exists and if not run "docker build"
+    docker run -p 8080:8080 -p 50000:50000 --name build-box-lvl3 -i -t avastmick/build-box-lvl3;
+else
+    echo Unknown target!
+    usage
+    exit
+fi

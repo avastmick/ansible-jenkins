@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Run up a Docker container to allow local host file editing, but execution in container etc.
-# Image build with (from root of repo): docker build -y avastmick/jenkins-ansible-packer ./docker/.
-docker run -p 8080:8080 -p 50000:50000 --name build-box -i -t -v $(pwd)/repos:/usr/local/repos avastmick/jenkins-ansible-packer /bin/bash
