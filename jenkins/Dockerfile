@@ -6,7 +6,7 @@ MAINTAINER avastmick <avastmick.outlook.com>
 WORKDIR /usr/local/repos
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y wget curl git sudo file default-jdk && \
+    apt-get install --no-install-recommends -y default-jdk && \
     apt-get clean
 
 # Install Jenkins
