@@ -7,12 +7,12 @@ A set of docker images and scripts to set up a viable local deve env using Ansib
 
 |image name |installed|notes|
 |:---|:---|:---|
-|centos:latest|latest centos image|
-|avastmick/jenkins-base|jenkins|This is a straight rip of the official Jenkins latest, but on Centos|
-|avastmick/ansible-packer| Ansible and Packer|Anisble via yum, Packer binary download|
+|ubuntu:xenial|Ubuntu 16.04|Base image
+|avastmick/development-base|standard tool||
+|avastmick/jenkins-base|jenkins|This is a straight rip of the official Jenkins latest, but on my development base, plus Java|
+|avastmick/ansible-packer| Ansible and Packer|Anisble via apt, Packer binary download|
 
 
 ## Branches
 
 1. master will be base on Ubuntu images
-2. centos-rhel is as expected.
