@@ -9,9 +9,9 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y default-jdk && \
     apt-get clean
 
-# Install Jenkins
+# Install Jenkins - ensure version is 2.x+
 RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-RUN sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+RUN sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 RUN apt-get update && \
     apt-get install --no-install-recommends -y jenkins
 

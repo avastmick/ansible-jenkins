@@ -20,7 +20,7 @@ if [[ "$1" == "dev" ]]; then
     docker run -p --httpPort=9090 9090:9090 -p 50000:50000 --name build-box-dev -i -t avastmick/ansible-jenkins;
 elif [[ "$1" == "std" ]]; then
     # TODO - check the image exists and if not run "docker build"
-    docker run -p 8080:8080 -p 50000:50000 --name build-box -i -t avastmick/ansible-jenkins;
+    docker run -p 8080:8080 -p 50000:50000 --name build-box -i -t avastmick/ansible-jenkins /bin/bash;
 else
     echo Unknown target!
     usage
