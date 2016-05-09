@@ -8,19 +8,19 @@ function usage {
     echo Usage:
     echo    run-docker [target]
     echo target:
-    echo    \"level-2\" - creates a Level 2 container
-    echo    \"level-3\" - creates a Level 3 container
+    echo    \"dev\" - creates a Level 2 container
+    echo    \"std\" - creates a Level 3 container
 }
 if [ -z "$1" ]; then
     usage
     exit
 fi
-if [[ "$1" == "level-2" ]]; then
+if [[ "$1" == "dev" ]]; then
     # TODO - check the image exists and if not run "docker build"
-    docker run -p --httpPort=9090 9090:9090 -p 50000:50000 --name build-box-lvl2 -i -t avastmick/build-box-lvl2;
-elif [[ "$1" == "level-3" ]]; then
+    docker run -p --httpPort=9090 9090:9090 -p 50000:50000 --name build-box-dev -i -t avastmick/ansible-jenkins;
+elif [[ "$1" == "std" ]]; then
     # TODO - check the image exists and if not run "docker build"
-    docker run -p 8080:8080 -p 50000:50000 --name build-box-lvl3 -i -t avastmick/build-box-lvl3;
+    docker run -p 8080:8080 -p 50000:50000 --name build-box -i -t avastmick/ansible-jenkins;
 else
     echo Unknown target!
     usage
