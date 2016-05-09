@@ -1,4 +1,4 @@
-FROM avastmick/jenkins-base
+FROM avastmick/ansible-jenkins:base
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
