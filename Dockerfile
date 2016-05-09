@@ -12,7 +12,7 @@ MAINTAINER avastmick <avastmick.outlook.com>
 #   - have any other tools required for automated builds
 
 # Install Ansible (via pip)
-RUN apt-get install  python-pip python-dev python-setuptools git libffi-dev libssl-dev libxml2-dev libxslt1-dev
+RUN apt-get install --no-install-recommends -y python-pip python-dev python-setuptools git libffi-dev libssl-dev libxml2-dev libxslt1-dev
 RUN pip install --upgrade setuptools
 RUN pip install ansible
 
@@ -21,4 +21,4 @@ RUN curl -sf -O https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux
     unzip packer_0.10.0_linux_amd64.zip -d /usr/bin
 
 # Install Vagrant
-RUN apt-get install vagrant
+RUN apt-get install --no-install-recommends -y vagrant
