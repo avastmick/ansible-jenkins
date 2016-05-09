@@ -1,4 +1,4 @@
-FROM jenkins-base
+FROM avastmick/jenkins-base
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
