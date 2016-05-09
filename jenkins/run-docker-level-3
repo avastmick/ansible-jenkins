@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Runs up a base (but fully functioning) Jenkins 2.0 container
+docker run -p 8080:8080 -p 50000:50000 --name jenkins-box-lvl3 -i -t avastmick/jenkins-base

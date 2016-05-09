@@ -1,0 +1,7 @@
+docker build -t "jenkins-base" ./jenkins/.
+
+/etc/sysconfig/jenkins
+
+
+
+ docker run --httpPort=9090 --name build-box-base -p 9090:9090 -p 50000:50000 -v /var/jenkins_home jenkins:2.0

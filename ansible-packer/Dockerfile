@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM jenkins-base
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
