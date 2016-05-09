@@ -12,7 +12,7 @@ MAINTAINER avastmick <avastmick.outlook.com>
 #   - have any other tools required for automated builds
 
 # Install Ansible (via pip)
-RUN apt-get install --no-install-recommends -y python-pip python-dev python-setuptools git libffi-dev libxml2-dev libxslt1-dev
+RUN apt-get update 
 RUN pip install --upgrade setuptools
 RUN pip install ansible
 
