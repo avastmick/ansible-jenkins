@@ -16,9 +16,9 @@ if [ -z "$1" ]; then
     exit
 fi
 if [[ "$1" == "jenkins-base" ]]; then
-    docker build -t "avastmick/jenkins-base" ./jenkins/.
+    docker build -t "avastmick/ansible-jenkins:base" ./jenkins/.
 elif [[ "$1" == "build-box" ]]; then
-    docker build -t "avastmick/build-box" .
+    docker build -t "avastmick/ansible-jenkins" .
 else
     echo Unknown target!
     usage
