@@ -9,19 +9,16 @@ function usage {
     echo    build-docker [target]
     echo target:
     echo    \"jenkins-base\" - builds the base Jenkins image
-    echo    \"build-box-lvl2\" - builds a Level 2 Build Machine image
-    echo    \"build-box-lvl3\" - builds a Level 3 Build Machine image
+    echo    \"build-box\" - builds a full build image
 }
 if [ -z "$1" ]; then
     usage
     exit
 fi
 if [[ "$1" == "jenkins-base" ]]; then
-    docker build -t "avastmick/jenkins-base" ./jenkins/.;
-elif [[ "$1" == "build-box-lvl2" ]]; then
-    docker build -t "avastmick/build-box-lvl2" .;
-elif [[ "$1" == "build-box-lvl3" ]]; then
-    docker build -t "avastmick/build-box-lvl3" .;
+    docker build -t "avastmick/jenkins-base" ./jenkins/.
+elif [[ "$1" == "build-box" ]]; then
+    docker build -t "avastmick/build-box" .
 else
     echo Unknown target!
     usage
