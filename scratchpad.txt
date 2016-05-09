@@ -11,6 +11,5 @@ docker build -t "jenkins-base" ./jenkins/.
 # Need to set up a full python dev env to allow the installation of Ansible via pip:
 
 sudo apt-get install python-pip python-dev python-setuptools libffi-dev libssl-dev libxml2-dev libxslt1-dev
-sudo easy_install python-pip
 sudo pip install --upgrade setuptools
 sudo pip install ansible
