@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM avastmick/development-base
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
