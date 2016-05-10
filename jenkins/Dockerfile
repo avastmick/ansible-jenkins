@@ -5,6 +5,10 @@ MAINTAINER avastmick <avastmick.outlook.com>
 # This is the local Jenkins install that will act as a base
 WORKDIR /usr/local/repos
 
+# Jenkins home directory is a volume, so configuration and build history
+# can be persisted and survive image upgrades
+VOLUME /var/lib/jenkins
+
 RUN apt-get update && \
     apt-get install --no-install-recommends -y default-jdk && \
     apt-get clean
