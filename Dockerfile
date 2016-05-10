@@ -12,8 +12,8 @@ MAINTAINER avastmick <avastmick.outlook.com>
 #   - have any other tools required for automated builds
 
 # Install Ansible (via pip)
-RUN apt-get update 
-RUN pip install --upgrade setuptools
+RUN apt-get update
+RUN pip install --upgrade setuptools wheel
 RUN pip install ansible
 
 # Install Packer
