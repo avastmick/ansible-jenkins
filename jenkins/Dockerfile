@@ -9,15 +9,12 @@ WORKDIR /usr/local/repos
 # can be persisted and survive image upgrades
 VOLUME /var/lib/jenkins
 
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y default-jdk && \
+# Install Jenkins - TODO ensure version is 2.x+
+RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add - && \
+    sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list' && \
+    apt-get update && \
+    apt-get install --no-install-recommends -y default-jdk jenkins && \
     apt-get clean
-
-# Install Jenkins - ensure version is 2.x+
-RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-RUN sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y jenkins
 
 # for main web interface:
 EXPOSE 8080
