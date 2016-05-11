@@ -14,7 +14,7 @@ RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key
     sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list' && \
     apt-get update && \
     apt-get install --no-install-recommends -y default-jdk jenkins && \
-    apt-get clean
+    rm -rf /var/lib/apt/lists/*
 
 # for main web interface:
 EXPOSE 8080

@@ -21,4 +21,5 @@ RUN curl -sf -O https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux
 
 # Install Vagrant
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y vagrant
+    apt-get install --no-install-recommends -y vagrant && \
+    rm -rf /var/lib/apt/lists/*
