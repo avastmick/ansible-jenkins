@@ -1,4 +1,4 @@
-FROM avastmick/development-base
+FROM avastmick/development
 
 MAINTAINER avastmick <avastmick.outlook.com>
 
