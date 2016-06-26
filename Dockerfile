@@ -1,7 +1,5 @@
 FROM jenkins:latest
 
-MAINTAINER avastmick <avastmick.outlook.com>
-
 # This creates a full Build machine that will:
 #   - be based on Ubuntu latest
 #   - have Jenkins 1.6+ installed
@@ -14,7 +12,9 @@ MAINTAINER avastmick <avastmick.outlook.com>
 USER root
 
 #### Build variables
-ENV PACKER_VERSION=0.10.0
+ARG PACKER_VERSION=0.10.0
+#### Repository URL
+ARG GITHUB_URL=github.com
 
 #### Build variables
 ENV ANSIBLE_HOME /home/ansible
@@ -24,8 +24,6 @@ ENV ANSIBLE_HOME /home/ansible
 EXPOSE 8080 8090
 # will be used by attached slave agents (note latter unlikely to be used):
 EXPOSE 50000 50001
-# WinRM Port for remote
-EXPOSE 5985 5986
 # Other ports
 
 #### Users and groups
@@ -41,7 +39,6 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         apt-utils \
         build-essential ca-certificates curl \
-        default-jdk \
         file \
         git \
         libffi-dev libxslt1-dev libssl-dev libxml2-dev \
@@ -50,15 +47,8 @@ RUN apt-get update && \
         sudo uuid-dev unzip wget && \
     apt-get clean
 
-## Other
-RUN groupadd -g ${ansible_gid} ${ansible_group} \
-    && useradd -d "$ANSIBLE_HOME" -u ${ansible_uid} -g ${ansible_gid} -m -s /bin/bash ${ansible_user} \
-    # Add jenkins and ansible to sudoers with no password
-    && echo "jenkins        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/jenkins \
-    && echo "ansible        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/ansible
-
 # Install Ansible (via pip) forcing the deps to latest
-RUN pip install --upgrade --force-reinstall pip setuptools wheel
+RUN pip install --upgrade pip setuptools wheel
 RUN pip install ansible
 
 # Install Packer binary
@@ -69,7 +59,17 @@ RUN curl -sf -O https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_$
 RUN apt-get update && \
     apt-get install --no-install-recommends -y vagrant
 
-######### COPY into image any required files or resources etc.
+######### Configure
+# Ensure that the Jenkins jobs can interact with the GitHub Enterprise server
+RUN echo | openssl s_client -showcerts -connect ${GITHUB_URL}:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /etc/ssl/certs/ca-certificates.crt
+
+## Other
+RUN groupadd -g ${ansible_gid} ${ansible_group} \
+    && useradd -d "$ANSIBLE_HOME" -u ${ansible_uid} -g ${ansible_gid} -m -s /bin/bash ${ansible_user} \
+    # Add jenkins and ansible to sudoers with no password
+    && echo "jenkins        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/jenkins \
+    && echo "ansible        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/ansible
+
 # ADD [external_file] [/local_dir/external_file]
 # Ansible configuration
 COPY ansible.cfg /etc/ansible/.
@@ -77,11 +77,11 @@ COPY ansible.cfg /etc/ansible/.
 #### Set user and run following as user
 USER jenkins
 
-# Jenkins plugins
+# Add Jenkins plugins
 COPY jenkins/plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
 
-# Jenkins JOBS - MUST be after loading plugins
+# Add Jenkins JOBS - MUST be after loading plugins
 COPY jenkins/jobs /usr/share/jenkins/ref/jobs
 
 #### Volumes - this MUST be AFTER all material changes - i.e. changes that affect disk, but BEFORE any exec processes
