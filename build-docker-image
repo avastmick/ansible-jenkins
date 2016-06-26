@@ -1,26 +1,7 @@
 #!/bin/bash
 
-# Builds a local images according to params sent in
+# Builds a local images according to target given with a specific name
 #
+# NOTE: Due to the lack of any on premises Docker Registry the name is critical
 
-# Help
-function usage {
-    echo Usage:
-    echo    build-docker [target]
-    echo target:
-    echo    \"jenkins-base\" - builds the base Jenkins image
-    echo    \"build-box\" - builds a full build image
-}
-if [ -z "$1" ]; then
-    usage
-    exit
-fi
-if [[ "$1" == "jenkins-base" ]]; then
-    docker build -t "avastmick/ansible-jenkins:base" ./jenkins/.
-elif [[ "$1" == "build-box" ]]; then
-    docker build -t "avastmick/ansible-jenkins" .
-else
-    echo Unknown target!
-    usage
-    exit
-fi
+docker build -t "avastmick/ansible-jenkins" .

@@ -1,28 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Creates and runs a local container according to "target" image
 #
-
-# Help
-function usage {
-    echo Usage:
-    echo    run-docker [target]
-    echo target:
-    echo    \"dev\" - creates a Level 2 container
-    echo    \"std\" - creates a Level 3 container
-}
-if [ -z "$1" ]; then
-    usage
-    exit
-fi
-if [[ "$1" == "dev" ]]; then
-    # TODO - check the image exists and if not run "docker build"
-    docker run -p --httpPort=9090 9090:9090 -p 50000:50000 --name build-box-dev -i -t avastmick/ansible-jenkins;
-elif [[ "$1" == "std" ]]; then
-    # TODO - check the image exists and if not run "docker build"
-    docker run -p 8080:8080 -p 50000:50000 --name build-box -i -t avastmick/ansible-jenkins /bin/bash;
-else
-    echo Unknown target!
-    usage
-    exit
-fi
+docker run -p 8080:8080 -p 50000:50000 --name build-box -i -t avastmick/ansible-jenkins
