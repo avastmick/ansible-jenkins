@@ -38,18 +38,20 @@ ARG ansible_gid=1001
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
         apt-utils \
-        build-essential ca-certificates curl \
+        build-essential \
+        ca-certificates curl \
+        debconf-utils \
         file \
         git \
-        libffi-dev libxslt1-dev libssl-dev libxml2-dev \
+        libffi-dev libxslt1-dev libssl-dev libxml2-dev libkrb5-dev \
         openssl \
         python python-dev python-pip python-setuptools \
         sudo uuid-dev unzip wget && \
     apt-get clean
 
-# Install Ansible (via pip) forcing the deps to latest
+# Install Ansible and dependencies (via pip) forcing the deps to latest
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install ansible
+RUN pip install ansible kerberos pywinrm  requests_kerberos xmltodict
 
 # Install Packer binary
 RUN curl -sf -O https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip && \
